@@ -183,7 +183,7 @@ class Stars:
             # Modified in needs to MMD
             embed = discord.Embed(description=data.description, title=data.title)
             try:
-                if not data.thumbnail == discord.Embed.Empty:
+                if not data.thumbnail == discord.Embed.Empty and not data.thumbnail.url == discord.Embed.Empty:
                     embed.set_thumbnail(url=data.thumbnail.url)
             except:
                 pass
