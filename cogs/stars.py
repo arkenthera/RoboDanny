@@ -180,6 +180,16 @@ class Stars:
             if data.type == 'image':
                 embed.set_image(url=data.url)
 
+            # Modified in needs to MMD
+            embed = discord.Embed(description=data.description, title=data.title)
+            try:
+                if not data.thumbnail == discord.Embed.Empty:
+                    embed.set_thumbnail(url=data.thumbnail.url)
+            except:
+                pass
+
+
+
         if message.attachments:
             file = message.attachments[0]
             if file.url.lower().endswith(('png', 'jpeg', 'jpg', 'gif', 'webp')):
@@ -372,7 +382,7 @@ class Stars:
         if msg.author.id == starrer_id:
             raise StarError('\N{NO ENTRY SIGN} You cannot star your own message.')
 
-        if (len(msg.content) == 0 and len(msg.attachments) == 0) or msg.type is not discord.MessageType.default:
+        if len(msg.embeds) == 0 and (len(msg.content) == 0 and len(msg.attachments) == 0) or msg.type is not discord.MessageType.default:
             raise StarError('\N{NO ENTRY SIGN} This message cannot be starred.')
 
         oldest_allowed = datetime.datetime.utcnow() - starboard.max_age
